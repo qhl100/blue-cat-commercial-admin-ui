@@ -36,7 +36,7 @@ export default [
     }
   },
   {
-    url: `/mock/user/info`,
+    url: `/user/info`,
     method: 'post',
     response: ({ body }) => {
       const { token } = body

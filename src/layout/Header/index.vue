@@ -14,15 +14,15 @@
         <div class="function-list-item"><Word /></div>
         <div class="function-list-item"><SizeChange /></div>
         <div class="function-list-item hidden-sm-and-down"><Theme /></div>
-        <div class="function-list-item hidden-sm-and-down"><Github /></div>
+<!--        <div class="function-list-item hidden-sm-and-down"><Github /></div>-->
       </div>
       <!-- 用户信息 -->
       <div class="user-info">
         <el-dropdown>
-          <span class="el-dropdown-link">
-            {{ $t('message.system.user') }}
+          <div class="el-dropdown-link"  >
+            {{userSnapshotsInfo.userName}}
             <i class="sfont system-xiala"></i>
-          </span>
+          </div>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="showPasswordLayer">{{ $t('message.system.changePassword') }}</el-dropdown-item>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive } from 'vue'
+import { defineComponent, computed, reactive,ref,onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 import FullScreen from './functionList/fullscreen.vue'
@@ -47,6 +47,7 @@ import Github from './functionList/github.vue'
 import Theme from './functionList/theme.vue'
 import Breadcrumb from './Breadcrumb.vue'
 import PasswordLayer from './passwordLayer.vue'
+import {getCookie} from '@/utils/setCookie'
 export default defineComponent({
   components: {
     FullScreen,
@@ -58,9 +59,20 @@ export default defineComponent({
     PasswordLayer
   },
   setup() {
+    const userSnapshotsInfo = reactive({
+      userName:''
+    })
+
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
+    console.log(router)
+    console.log(route)
+    let account = getCookie("blueCat_user_account")
+    userSnapshotsInfo.userName = account
+    if (account == null){
+      router.push('/login');
+    }
     const layer = reactive({
       show: false,
       showButton: true
@@ -75,13 +87,14 @@ export default defineComponent({
     const loginOut = () => {
       store.dispatch('user/loginOut')
     }
-    
+
     const showPasswordLayer = () => {
       layer.show = true
     }
     return {
       isCollapse,
       layer,
+      userSnapshotsInfo,
       opendStateChange,
       loginOut,
       showPasswordLayer

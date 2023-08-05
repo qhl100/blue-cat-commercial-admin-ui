@@ -7,24 +7,25 @@ const route: Route[] = [
     component: Layout,
     redirect: '/systemManage/menu',
     meta: { title: 'message.menu.systemManage.name', icon: 'sfont system-xitongzhuangtai' },
+    hideMenu:true,
     alwayShow: true,
-    children: [
-      {
-        path: 'menu',
-        component: createNameComponent(() => import('@/views/main/systemManage/menu/index.vue')),
-        meta: { title: 'message.menu.systemManage.menu' }
-      },
-      {
-        path: 'role',
-        component: createNameComponent(() => import('@/views/main/systemManage/role/index.vue')),
-        meta: { title: 'message.menu.systemManage.role' }
-      },
-      {
-        path: 'user',
-        component: createNameComponent(() => import('@/views/main/systemManage/users/index.vue')),
-        meta: { title: 'message.menu.systemManage.user' }
-      }
-    ]
+    // children: [
+    //   {
+    //     path: 'menu',
+    //     component: createNameComponent(() => import('@/views/main/systemManage/menu/index.vue')),
+    //     meta: { title: 'message.menu.systemManage.menu' }
+    //   },
+    //   {
+    //     path: 'role',
+    //     component: createNameComponent(() => import('@/views/main/systemManage/role/index.vue')),
+    //     meta: { title: 'message.menu.systemManage.role' }
+    //   },
+    //   {
+    //     path: 'user',
+    //     component: createNameComponent(() => import('@/views/main/systemManage/users/index.vue')),
+    //     meta: { title: 'message.menu.systemManage.user' }
+    //   }
+    // ]
   }
 ]
 

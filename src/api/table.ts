@@ -1,6 +1,5 @@
 import request from '@/utils/system/request'
 
-// 获取数据api
 export function getData(data: object) {
   return request({
     url: '/table/list',
@@ -10,6 +9,62 @@ export function getData(data: object) {
   })
 }
 
+export function queryUserLog(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/queryUserLog',
+    method: 'post',
+    data
+  })
+}
+export function queryOnlineUser() {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/queryOnlineUser',
+    method: 'get',
+  })
+}
+
+export function queryUserAccess(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/userAccessRule/admin/queryUserAccess',
+    method: 'post',
+    data
+  })
+}
+
+export function queryGptModelConfig(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/queryGptModelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+export function queryGptAilTokenConfig(data: object) {
+    return request({
+        url: 'http://127.0.0.1:8080/api/gptApiTokenConfig/getGptAilTokenConfig',
+        method: 'post',
+        data
+    })
+}
+
+
+export function queryChannelConfig(data: object) {
+    return request({
+        url: 'http://127.0.0.1:8080/api/channelConfig/getChannelConfig',
+        method: 'post',
+        data
+    })
+}
+
+
+export function queryUserinfo(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/userInfo/admin/queryUserInfo',
+    method: 'post',
+    data
+  })
+}
 // 获取分类数据
 export function getCategory(data: object) {
   return request({
@@ -43,12 +98,43 @@ export function add(data: object) {
 // 编辑
 export function update(data: object) {
   return request({
-    url: '/table/update',
+    url: 'http://127.0.0.1:8080/api/userAccessRule/update',
     method: 'post',
-    baseURL: '/mock',
     data
   })
 }
+
+
+// 编辑
+export function addGptModelConfig(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/addGptModelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+// 编辑
+export function updateGptModelConfig(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/updateGptModelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+
+// 编辑
+export function delGptModelConfig(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/updateGptModelConfig',
+    method: 'post',
+    data
+  })
+}
+
 
 // 删除
 export function del(data: object) {

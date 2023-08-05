@@ -63,6 +63,7 @@ import { getAuthRoutes } from '@/router/permission'
 import { ElMessage } from 'element-plus'
 import selectLang from '@/layout/Header/functionList/word.vue'
 import loginLeftPng from '@/assets/login/left.jpg';
+import encry from '@/utils/md5'
 
 export default defineComponent({
   components: {
@@ -73,8 +74,8 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const form = reactive({
-      name: 'admin',
-      password: '123456',
+      name: '',
+      password: '',
       loading: false
     })
     const passwordType = ref('password')
@@ -105,8 +106,8 @@ export default defineComponent({
       .then(() => {
         form.loading = true
         let params = {
-          name: form.name,
-          password: form.password
+          account: form.name,
+          password:encry( form.password)
         }
         store.dispatch('user/login', params)
         .then(async () => {

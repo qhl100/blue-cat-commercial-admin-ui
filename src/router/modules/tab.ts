@@ -11,13 +11,14 @@ const route: Route[] = [
     component: Layout,
     redirect: '/tab/index',
     meta: { title: 'message.menu.print.name', icon: 'sfont system-24gl-printer' },
-    children: [
-      {
-        path: 'index',
-        component: createNameComponent(() => import('@/views/main/tab/index.vue')),
-        meta: { title: 'message.menu.tab.name', icon: 'sfont system-24gl-printer' }
-      }
-    ]
+    hideMenu:true,
+    // children: [
+    //   {
+    //     path: 'index',
+    //     component: createNameComponent(() => import('@/views/main/tab/index.vue')),
+    //     meta: { title: 'message.menu.tab.name', icon: 'sfont system-24gl-printer' }
+    //   }
+    // ]
   }
 ]
 

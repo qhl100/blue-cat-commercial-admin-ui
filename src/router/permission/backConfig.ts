@@ -57,7 +57,10 @@ const component = {
 /** 页面 */
 const pages = {
   /** 业务表格 */
-  crudTable: createNameComponent(() => import('@/views/main/pages/crudTable/index.vue')),
+  userLogTable: createNameComponent(() => import('@/views/main/pages/userLogTable/index.vue')),
+  userInfoTable: createNameComponent(() => import('@/views/main/pages/userInfoTable/index.vue')),
+  userLevelTable: createNameComponent(() => import('@/views/main/pages/userLevelTable/index.vue')),
+  userOnlineTable: createNameComponent(() => import('@/views/main/pages/userOnlineTable/index.vue')),
   /** 分类表格 */
   categoryTable: createNameComponent(() => import('@/views/main/pages/categoryTable/index.vue')),
   /** 树形表格 */

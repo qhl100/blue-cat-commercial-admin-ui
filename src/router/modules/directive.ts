@@ -7,6 +7,7 @@ const route: Route[] = [
     component: Layout,
     redirect: '/directive/copy',
     meta: { title: 'message.menu.directive.name', icon: 'sfont system-zidingyi' },
+    hideMenu:true,
     children: [
       {
         path: 'dragable',

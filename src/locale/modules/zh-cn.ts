@@ -41,7 +41,12 @@ const lang = {
       },
       page: {
         name: '页面',
-        crudTable: '业务表格',
+        userLogTable: '用户行为数据',
+        userInfoTable: '用户信息表',
+        userOnlineTable: '在线用户数据',
+        userLevelTable: '用户身份数据',
+        gptModelConfig: 'gpt模型管理',
+        gptApiTokenTable: 'gpt-token管理',
         categoryTable: '分类联动表格',
         treeTable: '树联动表格',
         card: '卡片列表',
@@ -107,7 +112,7 @@ const lang = {
       },
     },
     system: {
-      title: '后台管理系统',
+      title: '蓝猫AI后台管理系统',
       subTitle: '时间不在于你拥有多少,而在于你怎样使用。',
       welcome: '欢迎登录',
       login: '登录',

@@ -1,6 +1,8 @@
 import axios , { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
+import VueCookies from 'vue-cookies'
+import {setCookie} from "@/utils/setCookie";
 const baseURL: any = import.meta.env.VITE_BASE_URL
 
 const service: AxiosInstance = axios.create({
@@ -10,11 +12,17 @@ const service: AxiosInstance = axios.create({
 
 // 请求前的统一处理
 service.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config) => {
     // JWT鉴权处理
-    if (store.getters['user/token']) {
-      config.headers['token'] = store.state.user.token
-    }
+    // if (store.getters['user/token']) {
+    //
+    //   config.headers['token'] = store.state.user.token
+    // }
+      let blueCatToken =  VueCookies.get('blueCat_token')
+      if ( blueCatToken){
+          config.headers.blueCat_token =  blueCatToken
+          setCookie('blueCat_token',  blueCatToken)
+      }
     return config
   },
   (error: AxiosError) => {

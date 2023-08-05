@@ -3,9 +3,8 @@ import request from '@/utils/system/request'
 /** 登录api */
 export function loginApi(data: object) {
   return request({
-    url: '/user/login',
+    url: 'http://127.0.0.1:8080/api/userInfo/admin/login',
     method: 'post',
-    baseURL: '/mock',
     data
   })
 }
@@ -13,9 +12,8 @@ export function loginApi(data: object) {
 /** 获取用户信息Api */
 export function getInfoApi(data: object) {
   return request({
-    url: '/user/info',
-    method: 'post',
-    baseURL: '/mock',
+    url: 'http://127.0.0.1:8080/api/userInfo/info',
+    method: 'get',
     data
   })
 }
@@ -23,9 +21,8 @@ export function getInfoApi(data: object) {
 /** 退出登录Api */
 export function loginOutApi() {
   return request({
-    url: '/user/out',
-    method: 'post',
-    baseURL: '/mock'
+    url: 'http://127.0.0.1:8080/api/userInfo/loginOut',
+    method: 'get',
   })
 }
 

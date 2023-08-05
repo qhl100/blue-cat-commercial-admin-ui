@@ -7,13 +7,14 @@ const route: Route[] = [
     component: Layout,
     redirect: '/print/js',
     meta: { title: 'message.menu.print.name', icon: 'sfont system-24gl-printer' },
-    children: [
-      {
-        path: 'js',
-        component: createNameComponent(() => import('@/views/main/print/index.vue')),
-        meta: { title: 'message.menu.print.jsPrint', icon: 'sfont system-24gl-printer' }
-      }
-    ]
+    hideMenu:true,
+    // children: [
+    //   {
+    //     path: 'js',
+    //     component: createNameComponent(() => import('@/views/main/print/index.vue')),
+    //     meta: { title: 'message.menu.print.jsPrint', icon: 'sfont system-24gl-printer' }
+    //   }
+    // ]
   }
 ]
 

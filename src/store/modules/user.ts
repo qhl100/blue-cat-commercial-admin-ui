@@ -1,5 +1,6 @@
 import { loginApi, getInfoApi, loginOutApi } from '@/api/user'
 import { ActionContext } from 'vuex'
+import {delCookie, setCookie} from "@/utils/setCookie";
 
 export interface userState {
   token: string,
@@ -34,10 +35,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       loginApi(params)
       .then(res => {
-        commit('tokenChange', res.data.token)
-        dispatch('getInfo', { token: res.data.token })
+        setCookie('blueCat_token', res.data.id)
+        setCookie('blueCat_user_account', res.data.account)
+        commit('tokenChange', res.data.id)
+        dispatch('getInfo', { token: res.data.id })
         .then(infoRes => {
-          resolve(res.data.token)
+          resolve(res.data.id)
         })
       }).catch(err => {
         reject(err)
@@ -49,8 +52,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfoApi(params)
       .then(res => {
-        commit('infoChange', res.data.info)
-        resolve(res.data.info)
+        commit('infoChange', res.data)
+        resolve(res.data)
       })
     })
   },
@@ -59,14 +62,18 @@ const actions = {
   loginOut({ commit }: ActionContext<userState, userState>) {
     loginOutApi()
     .then(res => {
-
+      delCookie('blueCat_token')
+      delCookie('blueCat_user_account')
     })
     .catch(error => {
-
+      delCookie('blueCat_token')
+      delCookie('blueCat_user_account')
     })
     .finally(() => {
       localStorage.removeItem('tabs')
       localStorage.removeItem('vuex')
+      delCookie('blueCat_token')
+      delCookie('blueCat_user_account')
       sessionStorage.removeItem('vuex')
       location.reload()
     })

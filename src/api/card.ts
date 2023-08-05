@@ -3,12 +3,19 @@ import request from '@/utils/system/request'
 // 获取数据api
 export function getData(data: object) {
   return request({
-    url: '/card/list',
+    url: 'http://127.0.0.1:8080/api/admin/queryUserLog',
     method: 'post',
-    baseURL: '/mock',
     data
   })
 }
+
+export function getUserData() {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/queryUserData',
+    method: 'get',
+  })
+}
+
 
 // 新增
 export function add(data: object) {

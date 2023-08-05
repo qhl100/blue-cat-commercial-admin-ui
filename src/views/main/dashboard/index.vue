@@ -1,9 +1,9 @@
 <template>
   <div class="box">
-    <basic-template />
+<!--    <basic-template />-->
     <Card />
     <Charts />
-    <Communication />
+<!--    <Communication />-->
   </div>
 </template>
 

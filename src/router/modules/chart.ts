@@ -7,6 +7,7 @@ const route: Route[] = [
     component: Layout,
     redirect: '/echarts/dragable',
     meta: { title: 'message.menu.echarts.name', icon: 'sfont system-chart' },
+    hideMenu:true,
     children: [
       {
         path: 'bar',

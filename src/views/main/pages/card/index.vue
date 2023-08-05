@@ -6,11 +6,14 @@
           <el-row :gutter="20">
             <el-col :lg="4" :md="8" :sm="12" :xs="24" v-for="row in list" :key="row.id">
               <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                <img :src="row.image" class="image">
                 <div style="padding: 14px;">
-                  <span>{{ row.title }}</span>
+                  <span>{{ row.appName }}</span>
+                  <span>{{ row.ip }}</span>
+                  <span>{{ row.biz }}</span>
+                  <span>{{ row.createUser }}</span>
+                  <span>{{ row.op }}</span>
                   <div class="bottom clearfix">
-                    <time class="time">{{ row.time }}</time>
+                    <time class="time">{{ row.createTime }}</time>
                     <el-button type="text" class="edit-button" @click="showEditor">编辑</el-button>
                   </div>
                 </div>
@@ -46,7 +49,7 @@ export default defineComponent({
   name: 'card',
   setup() {
     let loading = ref(true)
-    let list: Ref<{ id: string, image: string, title: string, time: string }[]> = ref([])
+    let list: Ref<{ appName: string, ip: string, biz: string, createTime: string, createUser: string, op: number }[]> = ref([])
     let box: Ref<HTMLDivElement> = ref() as any
     let page: Page = reactive({
       index: 1,
@@ -61,10 +64,12 @@ export default defineComponent({
       }
       getData(params)
       .then(res => {
-        page.total = res.data.pager.total
-        list.value = res.data.list
+        page.total = res.data.total
+        debugger
+        list.value = res.data.records
       })
       .catch(err => {
+        debugger
         list.value = []
         page.index = 1
         page.total = 0

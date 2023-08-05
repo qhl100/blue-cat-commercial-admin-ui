@@ -10,41 +10,66 @@ const route: Route[] = [
     alwayShow: true,
     children: [
       {
-        path: 'crudTable',
-        component: createNameComponent(() => import('@/views/main/pages/crudTable/index.vue')),
-        meta: { title: 'message.menu.page.crudTable', cache: false, roles: ['admin', 'editor'] }
+        path: 'userLogTable',
+        component: createNameComponent(() => import('@/views/main/pages/userLogTable/index.vue')),
+        meta: { title: 'message.menu.page.userLogTable', cache: false, roles: ['admin', 'editor'] }
       },
       {
-        path: 'categoryTable',
-        component: createNameComponent(() => import('@/views/main/pages/categoryTable/index.vue')),
-        meta: { title: 'message.menu.page.categoryTable', cache: true, roles: ['admin'] }
+        path: 'userInfoTable',
+        component: createNameComponent(() => import('@/views/main/pages/userInfoTable/index.vue')),
+        meta: { title: 'message.menu.page.userInfoTable', cache: false, roles: ['admin', 'editor'] }
       },
       {
-        path: 'treeTable',
-        component: createNameComponent(() => import('@/views/main/pages/treeTable/index.vue')),
-        meta: { title: 'message.menu.page.treeTable', cache: true }
+        path: 'userOnlineTable',
+        component: createNameComponent(() => import('@/views/main/pages/userOnlineTable/index.vue')),
+        meta: { title: 'message.menu.page.userOnlineTable', cache: false, roles: ['admin', 'editor'] }
       },
       {
-        path: 'card',
-        component: createNameComponent(() => import('@/views/main/pages/card/index.vue')),
-        meta: { title: 'message.menu.page.card', cache: true }
+        path: 'userLevelTable',
+        component: createNameComponent(() => import('@/views/main/pages/userLevelTable/index.vue')),
+        meta: { title: 'message.menu.page.userLevelTable', cache: false, roles: ['admin', 'editor'] }
       },
       {
-        path: 'cardDetail',
-        hideMenu: true,
-        component: createNameComponent(() => import('@/views/main/pages/card/detail/index.vue')),
-        meta: { title: 'message.menu.page.card', cache: false },
+        path: 'gptModelConfig',
+        component: createNameComponent(() => import('@/views/main/pages/gptModelConfig/index.vue')),
+        meta: { title: 'message.menu.page.gptModelConfig', cache: false, roles: ['admin', 'editor'] }
       },
       {
-        path: 'work',
-        component: createNameComponent(() => import('@/views/main/pages/work/index.vue')),
-        meta: { title: 'message.menu.page.work' }
+        path: 'gptApiTokenTable',
+        component: createNameComponent(() => import('@/views/main/pages/gptApiTokenTable/index.vue')),
+        meta: { title: 'message.menu.page.gptApiTokenTable', cache: false, roles: ['admin', 'editor'] }
       },
-      {
-        path: 'blog',
-        component: createNameComponent(() => import('@/views/main/pages/baidu/index.vue')),
-        meta: { title: 'message.menu.page.baidu' }
-      },
+      // {
+      //   path: 'categoryTable',
+      //   component: createNameComponent(() => import('@/views/main/pages/categoryTable/index.vue')),
+      //   meta: { title: 'message.menu.page.categoryTable', cache: true, roles: ['admin'] }
+      // },
+      // {
+      //   path: 'treeTable',
+      //   component: createNameComponent(() => import('@/views/main/pages/treeTable/index.vue')),
+      //   meta: { title: 'message.menu.page.treeTable', cache: true }
+      // },
+      // {
+      //   path: 'card',
+      //   component: createNameComponent(() => import('@/views/main/pages/card/index.vue')),
+      //   meta: { title: 'message.menu.page.card', cache: true }
+      // },
+      // {
+      //   path: 'cardDetail',
+      //   hideMenu: true,
+      //   component: createNameComponent(() => import('@/views/main/pages/card/detail/index.vue')),
+      //   meta: { title: 'message.menu.page.card', cache: false },
+      // },
+      // {
+      //   path: 'work',
+      //   component: createNameComponent(() => import('@/views/main/pages/work/index.vue')),
+      //   meta: { title: 'message.menu.page.work' }
+      // },
+      // {
+      //   path: 'blog',
+      //   component: createNameComponent(() => import('@/views/main/pages/baidu/index.vue')),
+      //   meta: { title: 'message.menu.page.baidu' }
+      // },
     ]
   }
 ]
