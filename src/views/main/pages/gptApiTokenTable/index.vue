@@ -49,6 +49,7 @@
         <el-table-column prop="balance" label="余额" align="center" />
         <el-table-column prop="status" label="状态" align="center" />
         <el-table-column prop="visitNumber" label="访问次数" align="center" />
+        <el-table-column prop="endTime" label="失效时间" align="center" />
         <el-table-column prop="createTime" label="创建时间" align="center" />
         <el-table-column prop="createUser" label="创建人" align="center" />
         <el-table-column prop="updateTime" label="更新时间" align="center" />
@@ -73,7 +74,7 @@
           </template>
         </el-table-column>
       </Table>
-      <Layer :layer="layer" :channelMap="channelMap" @getTableData="getTableData" v-if="layer.show" />
+      <Layer :layer="layer" :channelMap="channelMap" :options="options"  @getTableData="getTableData" v-if="layer.show" />
     </div>
   </div>
 </template>
@@ -134,7 +135,8 @@ export default defineComponent({
     const loading = ref(true)
       const channelMap = ref(new Map());
       const tableData = ref([])
-    const chooseData = ref([])
+      const options = ref(new Array())
+      const chooseData = ref([])
       const channelConfig = ref([])
 
       const handleSelectionChange = (val: []) => {
@@ -148,12 +150,18 @@ export default defineComponent({
           }
           queryChannelConfig(params)
               .then(res => {
+                  const  option2s = res.data.records.map(item => {
+                      return {
+                          value: item.id,
+                          label: item.name
+                      }
+                  });
+                  options.value = option2s
                   const map = res.data.records.reduce((acc, obj) => {
                       acc.set(obj.id, obj.name);
                       return acc;
                   }, new Map());
                   channelMap.value = map
-                  console.log(channelMap.value)
 
               })
               .catch(error => {
@@ -208,14 +216,18 @@ export default defineComponent({
           return e.id
         }).join(',')
       }
-      delGptModelConfig(params)
-              .then(res => {
-                ElMessage({
-                  type: 'success',
-                  message: '删除成功'
-                })
-                getTableData(tableData.value.length === 1 ? true : false)
-              })
+        ElMessage({
+            type: 'warning',
+            message: '不支持删除'
+        })
+      // delGptModelConfig(params)
+      //         .then(res => {
+      //           ElMessage({
+      //             type: 'success',
+      //             message: '删除成功'
+      //           })
+      //           getTableData(tableData.value.length === 1 ? true : false)
+      //         })
     }
     // 新增弹窗功能
     const handleAdd = () => {
@@ -242,6 +254,7 @@ export default defineComponent({
       serviceTypeData,
       loading,
       page,
+        options,
       layer,
       channelMap,
       handleSelectionChange,

@@ -16,22 +16,31 @@
       <el-form-item label="访问次数：" prop="visitNumber">
         <el-input v-model="form.visitNumber" placeholder="请输入访问次数"></el-input>
       </el-form-item>
+      <el-form-item label="余额：" prop="balance">
+        <el-input v-model="form.balance" ></el-input>
+      </el-form-item>
+      <el-form-item label="失效时间：" >
+                    <el-date-picker style="width: 60%"
+                                    v-model="form.endTime"
+                                    type="datetime"
+                                  :disabled-date="disabledDate"
+        placeholder="选择日期" />
+      </el-form-item>
       <el-form-item label="状态：">
         <el-select v-model="form.status" placeholder="请输入状态" clearable>
           <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="绑定通道：">
-<!--        <el-select v-model="form.channelIds" placeholder="请输入通道" clearable>-->
-         <el-input v-model="form.channelIds"></el-input>
-<!--          <el-option-->
-<!--                  v-for="option in channelIds"-->
-<!--                  :key="option"-->
-<!--                  :label="option"-->
-<!--                  :value="option"-->
-<!--          >{{channelMap.get(option)}}</el-option>-->
 
-<!--        </el-select>-->
+      <el-form-item label="绑定通道：">
+        <el-select  v-model="form.channelIds" clearable multiple placeholder="Select">
+          <el-option
+                  v-for="item in optionsList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
   </Layer>
@@ -39,9 +48,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { addGptModelConfig, update, updateGptModelConfig} from '@/api/table'
+import {addGptModelConfig, update, updateGptAilTokenConfig, updateGptModelConfig} from '@/api/table'
 import {selectData, radioData} from './enum'
 import Layer from '@/components/layer/index.vue'
+import  { Ref } from 'vue'
+import  { ElFormItemContext } from 'element-plus/lib/el-form/src/token'
+import  { LayerType } from '@/components/layer/index.vue'
 
 export interface apiObject {
     id: number,
@@ -76,17 +88,28 @@ export default defineComponent({
     },
       channelMap:{
 
-      }
+      },
+    options: {
+
+    }
   },
   setup(props, ctx) {
       const channelMap = props.channelMap
+    const optionsList = ref(props.options)
+
+    const ruleForm: Ref<ElFormItemContext|null> = ref(null)
+    const layerDom: Ref<LayerType|null> = ref(null)
     let form = ref({
         id:null,
       token: null,
       model: null,
-      weight: null,
+      userId:null,
       status: null,
-        channelIds:null
+      channelIds:[],
+      visitNumber:null,
+      name:null,
+      balance: null,
+      endTime: null
     })
 
       const serviceTypeData = [
@@ -114,7 +137,10 @@ export default defineComponent({
       selectData,
       serviceTypeData,
       channelMap,
-      radioData
+      radioData,
+      ruleForm,
+      layerDom,
+      optionsList
     }
   },
   methods: {
@@ -124,10 +150,14 @@ export default defineComponent({
           if (valid) {
               let params = {
                 id:this.form.id,
-                baseUrl:this.form.baseUrl,
+                userId:this.form.userId,
                 token: this.form.token,
                 model: this.form.model,
-                weight: this.form.weight,
+                channelIds: this.form.channelIds,
+                visitNumber: this.form.visitNumber,
+                name: this.form.name,
+                balance: this.form.balance,
+                endTime: this.form.endTime,
                 status: this.form.status
             }
             if (this.layer.row) {
@@ -156,7 +186,7 @@ export default defineComponent({
     },
     // 编辑提交事件
     updateForm(params: object) {
-      updateGptModelConfig(params)
+      updateGptAilTokenConfig(params)
       .then(res => {
         this.$message({
           type: 'success',

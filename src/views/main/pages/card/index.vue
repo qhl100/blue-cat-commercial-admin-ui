@@ -65,11 +65,9 @@ export default defineComponent({
       getData(params)
       .then(res => {
         page.total = res.data.total
-        debugger
         list.value = res.data.records
       })
       .catch(err => {
-        debugger
         list.value = []
         page.index = 1
         page.total = 0

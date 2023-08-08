@@ -4,21 +4,28 @@
       <div>
         <el-form-item  label="选择日期">
           <el-date-picker style="width: 40%"
+                          value-format="YYYY-MM-DDTHH:mm:ss"
                           v-model="query.createTime"
-                          type="date"
+                          type="datetime"
                           :disabled-date="disabledDateStart"
                           placeholder="选择日期" />
           -
           <el-date-picker style="width: 40%"
+                          value-format="YYYY-MM-DDTHH:mm:ss"
                           v-model="query.endTime"
-                          type="date"
+                          type="datetime"
                           :disabled-date="disabledDate"
                           placeholder="选择日期" />
         </el-form-item>
       </div>
-      <div class="layout-container-form-search" label="送审ID">
-        <el-form-item  label="操作">
-          <el-input v-model="query.op" :placeholder="$t('message.common.searchTip')" ></el-input>
+      <div class="layout-container-form-search">
+        <el-form-item  label="token">
+          <el-input v-model="query.token" :placeholder="$t('message.common.searchTip')" ></el-input>
+        </el-form-item>
+        <el-form-item label="模型" >
+          <el-select v-model="query.serviceType" placeholder="请选择" clearable>
+            <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-button type="primary" :icon="Search" class="search-btn" @click="getTableData(true)">{{ $t('message.common.search') }}</el-button>
       </div>
@@ -34,17 +41,14 @@
         @getTableData="getTableData"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="appName" label="产品名称" align="center" />
-        <el-table-column prop="ip" label="登录ip" align="center" />
-        <el-table-column prop="biz" label="业务id" align="center" />
-        <el-table-column label="操作" align="center">
-          <template #default="scope">
-              {{opMap[scope.row.op]}}
-          </template>
-        </el-table-column>
-        <el-table-column prop="browserName" label="登录浏览器" align="center" />
-        <el-table-column prop="createUser" label="用户" align="center" />
-        <el-table-column prop="createTime" label="创建时间" align="center" />
+        <el-table-column prop="id" label="id" align="center" />
+        <el-table-column prop="serviceType" label="模型" align="center" />
+        <el-table-column prop="token" label="token" align="center" />
+        <el-table-column prop="promptToken" label="promptToken" align="center" />
+        <el-table-column prop="relyToken" label="relyToken" align="center" />
+        <el-table-column prop="conversationId" label="会话id" align="center" />
+        <el-table-column prop="createTime" label="建立时间" align="center" />
+        <el-table-column prop="source" label="source" align="center" />
       </Table>
       <Layer :layer="layer" @getTableData="getTableData" v-if="layer.show" />
     </div>
@@ -55,7 +59,7 @@
 import { defineComponent, ref, reactive } from 'vue'
 import Table from '@/components/table/index.vue'
 import { Page } from '@/components/table/type'
-import {getData, del, queryUserLog} from '@/api/table'
+import {getData, del, queryUserLog, queryPromptRecord} from '@/api/table'
 import Layer from './layer.vue'
 import { ElMessage } from 'element-plus'
 import { selectData, radioData } from './enum'
@@ -75,16 +79,19 @@ export default defineComponent({
       const opMap = {
           1: '登录',
           2: '注册',
-          3: '异常',
+          3: '退出',
       };
       // 存储搜索用的数据
     const query = reactive({
-      op:null,
-      // createTime:1689868969000,
-      // endTime:1690473769000,
+      token:null,
       createTime:'',
-      endTime:''
+      endTime:'',
+      serviceType:null
     })
+    const serviceTypeData = [
+      { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
+      { value:"gpt-4", label: 'gpt-4' }
+    ]
     // 弹窗控制器
     const layer: LayerInterface = reactive({
       show: false,
@@ -113,13 +120,13 @@ export default defineComponent({
       let params = {
         page: page.index,
         pageSize: page.size,
+        token:query.token ==='' ? null:query.token,
+        serviceType:query.serviceType ==='' ? null:query.serviceType,
         startTime : query.createTime,
         endTime: query.endTime,
-        op: query.op
       }
-      console.log(query)
-      console.log(params)
-      queryUserLog(params)
+
+      queryPromptRecord(params)
               .then(res => {
                 let data = res.data.records
                 if (Array.isArray(data)) {
@@ -182,6 +189,7 @@ export default defineComponent({
       loading,
       page,
       layer,
+      serviceTypeData,
       handleSelectionChange,
       handleAdd,
       handleEdit,

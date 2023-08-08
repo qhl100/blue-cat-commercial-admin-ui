@@ -3,7 +3,7 @@ import request from '@/utils/system/request'
 /** 登录api */
 export function loginApi(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/userInfo/admin/login',
+    url: '/userInfo/admin/login',
     method: 'post',
     data
   })
@@ -12,7 +12,7 @@ export function loginApi(data: object) {
 /** 获取用户信息Api */
 export function getInfoApi(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/userInfo/info',
+    url: '/userInfo/info',
     method: 'get',
     data
   })
@@ -21,7 +21,7 @@ export function getInfoApi(data: object) {
 /** 退出登录Api */
 export function loginOutApi() {
   return request({
-    url: 'http://127.0.0.1:8080/api/userInfo/loginOut',
+    url: '/userInfo/loginOut',
     method: 'get',
   })
 }

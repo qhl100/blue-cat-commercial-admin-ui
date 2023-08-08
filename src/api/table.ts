@@ -11,7 +11,7 @@ export function getData(data: object) {
 
 export function queryUserLog(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryUserLog',
+    url: '/admin/queryUserLog',
     method: 'post',
     data
   })
@@ -19,21 +19,21 @@ export function queryUserLog(data: object) {
 
 export function queryPromptRecord(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryPromptRecord',
+    url: '/admin/queryPromptRecord',
     method: 'post',
     data
   })
 }
 export function queryOnlineUser() {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryOnlineUser',
+    url: '/admin/queryOnlineUser',
     method: 'get',
   })
 }
 
 export function queryUserAccess(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/userAccessRule/admin/queryUserAccess',
+    url: '/userAccessRule/admin/queryUserAccess',
     method: 'post',
     data
   })
@@ -41,7 +41,7 @@ export function queryUserAccess(data: object) {
 
 export function queryGptModelConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryGptModelConfig',
+    url: '/admin/queryGptModelConfig',
     method: 'post',
     data
   })
@@ -50,7 +50,7 @@ export function queryGptModelConfig(data: object) {
 
 export function queryGptAilTokenConfig(data: object) {
     return request({
-        url: 'http://127.0.0.1:8080/api/gptApiTokenConfig/getGptAilTokenConfig',
+        url: '/gptApiTokenConfig/getGptAilTokenConfig',
         method: 'post',
         data
     })
@@ -59,7 +59,7 @@ export function queryGptAilTokenConfig(data: object) {
 
 export function queryChannelConfig(data: object) {
     return request({
-        url: 'http://127.0.0.1:8080/api/channelConfig/getChannelConfig',
+        url: '/channelConfig/getChannelConfig',
         method: 'post',
         data
     })
@@ -68,7 +68,7 @@ export function queryChannelConfig(data: object) {
 
 export function queryUserinfo(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/userInfo/admin/queryUserInfo',
+    url: '/userInfo/admin/queryUserInfo',
     method: 'post',
     data
   })
@@ -106,7 +106,7 @@ export function add(data: object) {
 // 编辑
 export function update(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/userAccessRule/update',
+    url: '/userAccessRule/update',
     method: 'post',
     data
   })
@@ -116,7 +116,7 @@ export function update(data: object) {
 // 编辑
 export function addGptModelConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/addGptModelConfig',
+    url: '/admin/addGptModelConfig',
     method: 'post',
     data
   })
@@ -126,7 +126,7 @@ export function addGptModelConfig(data: object) {
 // 编辑
 export function updateGptAilTokenConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/gptApiTokenConfig/updateGptAilTokenConfig',
+    url: '/gptApiTokenConfig/updateGptAilTokenConfig',
     method: 'post',
     data
   })
@@ -138,7 +138,7 @@ export function updateGptAilTokenConfig(data: object) {
 // 编辑
 export function updateGptModelConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/updateGptModelConfig',
+    url: '/admin/updateGptModelConfig',
     method: 'post',
     data
   })
@@ -150,7 +150,7 @@ export function updateGptModelConfig(data: object) {
 // 编辑
 export function delGptModelConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/delGptModelConfig',
+    url: '/admin/delGptModelConfig',
     method: 'post',
     data
   })

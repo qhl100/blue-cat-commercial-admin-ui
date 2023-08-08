@@ -3,7 +3,7 @@ import request from '@/utils/system/request'
 // 获取数据api
 export function getData(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryUserLog',
+    url: '/admin/queryUserLog',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export function getData(data: object) {
 
 export function getUserData() {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/queryUserData',
+    url: '/admin/queryUserData',
     method: 'get',
   })
 }
