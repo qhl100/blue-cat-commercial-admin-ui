@@ -16,8 +16,21 @@
       <el-form-item label="权重：" prop="token">
         <el-input v-model="form.weight"  placeholder="请输入权重"></el-input>
       </el-form-item>
+      <el-form-item label="模型名称：" prop="token">
+        <el-input v-model="form.name"  placeholder="请输入模型名"></el-input>
+      </el-form-item>
       <el-form-item label="状态：" prop="status">
         <el-input v-model="form.status"  placeholder="请输入访问token"></el-input>
+      </el-form-item>
+      <el-form-item label="绑定通道：">
+        <el-select  v-model="form.channelIds" clearable multiple placeholder="Select">
+          <el-option
+                  v-for="item in optionsList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
   </Layer>
@@ -45,9 +58,17 @@ export default defineComponent({
           showButton: true
         }
       }
+    },
+    channelMap:{
+
+    },
+    options: {
+
     }
   },
   setup(props, ctx) {
+    const channelMaps = props.channelMap
+    const optionsList = ref(props.options)
     const ruleForm: Ref<ElFormItemContext|null> = ref(null)
     const layerDom: Ref<LayerType|null> = ref(null)
     let form = ref({
@@ -55,8 +76,10 @@ export default defineComponent({
         baseUrl: null,
       token: null,
       model: null,
+      name: null,
       weight: null,
       status: null,
+      channelIds:null
     })
     const rules = {
       name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
@@ -77,7 +100,9 @@ export default defineComponent({
       layerDom,
       ruleForm,
       selectData,
-      radioData
+      radioData,
+      channelMaps,
+      optionsList
     }
   },
   methods: {
@@ -89,10 +114,12 @@ export default defineComponent({
                 id:this.form.id,
                 baseUrl:this.form.baseUrl,
                 token: this.form.token,
+                name: this.form.name,
                 model: this.form.model,
                 weight: this.form.weight,
-                status: this.form.status
-            }
+                status: this.form.status,
+                channelIds: this.form.channelIds,
+              }
             if (this.layer.row) {
               console.log(params)
               this.updateForm(params)

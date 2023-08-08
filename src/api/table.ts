@@ -16,6 +16,14 @@ export function queryUserLog(data: object) {
     data
   })
 }
+
+export function queryPromptRecord(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/admin/queryPromptRecord',
+    method: 'post',
+    data
+  })
+}
 export function queryOnlineUser() {
   return request({
     url: 'http://127.0.0.1:8080/api/admin/queryOnlineUser',
@@ -116,6 +124,18 @@ export function addGptModelConfig(data: object) {
 
 
 // 编辑
+export function updateGptAilTokenConfig(data: object) {
+  return request({
+    url: 'http://127.0.0.1:8080/api/gptApiTokenConfig/updateGptAilTokenConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+
+
+// 编辑
 export function updateGptModelConfig(data: object) {
   return request({
     url: 'http://127.0.0.1:8080/api/admin/updateGptModelConfig',
@@ -126,10 +146,11 @@ export function updateGptModelConfig(data: object) {
 
 
 
+
 // 编辑
 export function delGptModelConfig(data: object) {
   return request({
-    url: 'http://127.0.0.1:8080/api/admin/updateGptModelConfig',
+    url: 'http://127.0.0.1:8080/api/admin/delGptModelConfig',
     method: 'post',
     data
   })

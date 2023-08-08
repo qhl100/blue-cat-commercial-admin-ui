@@ -4,6 +4,12 @@ interface Option {
   value: any
 }
 
+
+interface Option {
+  name: string,
+  value: any
+}
+
 export interface keepAliveState {
   keepAliveComponentsName: string[]
 }

@@ -39,6 +39,11 @@ const route: Route[] = [
         component: createNameComponent(() => import('@/views/main/pages/gptApiTokenTable/index.vue')),
         meta: { title: 'message.menu.page.gptApiTokenTable', cache: false, roles: ['admin', 'editor'] }
       },
+      {
+        path: 'promptRecordTable',
+        component: createNameComponent(() => import('@/views/main/pages/promptRecordTable/index.vue')),
+        meta: { title: 'message.menu.page.promptRecordTable', cache: false, roles: ['admin', 'editor'] }
+      },
       // {
       //   path: 'categoryTable',
       //   component: createNameComponent(() => import('@/views/main/pages/categoryTable/index.vue')),

@@ -1,15 +1,23 @@
-import { createStore, createLogger } from 'vuex'
+import {createStore, createLogger, useStore} from 'vuex'
 import Persistent from './plugins/persistent'
 import {userState} from "@/store/modules/user";
 import {keepAliveState} from "@/store/modules/keepAlive";
 import {appState} from "@/store/modules/app";
+import {queryChannelConfig} from "@/api/table";
 const debug = import.meta.env.MODE !== 'production'
 const files= import.meta.globEager('./modules/*.ts')
 
 export interface RootState {
   user: userState,
   keepAlive: keepAliveState,
-  app: appState
+  app: appState,
+  ChannelMaps:Array<ChannelMap>
+}
+
+//特殊名单类型
+export interface ChannelMap {
+  id:bigint,//特殊名单类型id
+  name:string,//名称
 }
 
 let modules: any = {}
@@ -36,3 +44,10 @@ export default createStore<RootState>({
   strict: debug,
   plugins: debug ? [createLogger(), persistent] : [persistent]
 })
+const promiseMap: Map<string, Promise<any>> = new Map()
+
+export function useGetGlobalData() {
+  const store = useStore()
+
+}
+

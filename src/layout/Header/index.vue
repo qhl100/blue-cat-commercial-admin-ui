@@ -66,12 +66,12 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
-    console.log(router)
-    console.log(route)
     let account = getCookie("blueCat_user_account")
+    console.log(account)
     userSnapshotsInfo.userName = account
     if (account == null){
-      router.push('/login');
+      store.dispatch('user/loginOut')
+
     }
     const layer = reactive({
       show: false,
