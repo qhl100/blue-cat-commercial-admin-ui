@@ -22,7 +22,13 @@
       <div class="layout-container-form-search" >
         <el-form-item  label="用户id">
           <el-input v-model="query.userId" :placeholder="$t('message.common.searchTip')" ></el-input>
-        </el-form-item>
+      </el-form-item>
+          <el-form-item  label="用户账号">
+          <el-input v-model="query.account" :placeholder="$t('message.common.searchTip')" ></el-input>
+      </el-form-item>
+          <el-form-item  label="token">
+              <el-input v-model="query.token" :placeholder="$t('message.common.searchTip')" ></el-input>
+          </el-form-item>
         <el-form-item label="状态" >
           <el-select v-model="query.status" placeholder="请选择" clearable>
             <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -53,7 +59,7 @@
         <el-table-column prop="createTime" label="创建时间" align="center" />
         <el-table-column prop="createUser" label="创建人" align="center" />
         <el-table-column prop="updateTime" label="更新时间" align="center" />
-        <el-table-column prop="updateTime" label="更新时间" align="center" />
+        <el-table-column prop="updateUser" label="更新人" align="center" />
           <el-table-column label="绑定通道" align="center" >
               <template #default="scope">
               <li v-for="item in scope.row.channelIds"
@@ -110,8 +116,8 @@ export default defineComponent({
     const query = reactive({
       userId:null,
       status:null,
-        // createTime:1689868969000,
-      // endTime:1690473769000,
+      token:null,
+      account:null,
       createTime:'',
       endTime:''
     })
@@ -182,7 +188,9 @@ export default defineComponent({
       }
       let params = {
         status:query.status,
+        token:query.token,
         userId: query.userId,
+        account: query.account,
         page: page.index,
         pageSize: page.size
       }

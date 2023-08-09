@@ -18,6 +18,9 @@
       </div>
       <div class="layout-container-form-search" label="送审ID">
         <el-form-item  label="用户id">
+          <el-input v-model="query.id" :placeholder="$t('message.common.searchTip')" ></el-input>
+        </el-form-item>
+        <el-form-item  label="用户账号">
           <el-input v-model="query.account" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
         <el-form-item label="用户状态" >
@@ -39,7 +42,8 @@
         @getTableData="getTableData"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="account" label="用户id" align="center" />
+        <el-table-column prop="id" label="用户id" align="center" />
+        <el-table-column prop="account" label="用户账号" align="center" />
         <el-table-column prop="username" label="用户名称" align="center" />
         <el-table-column prop="status" label="用户状态" align="center" >
           <template #default="scope">
@@ -87,10 +91,10 @@ export default defineComponent({
       // 存储搜索用的数据
     const query = reactive({
       status:null,
-      userId:null,
       phone:null,
       userLevel:null,
       account:null,
+      id:null,
       // createTime:1689868969000,
       // endTime:1690473769000,
       createTime:'',
@@ -126,7 +130,7 @@ export default defineComponent({
         pageSize: page.size,
         startTime : query.createTime,
         endTime: query.endTime,
-        userId: query.userId,
+        id: query.id,
         account: query.account,
         status: query.status,
         phone: query.phone

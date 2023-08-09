@@ -48,6 +48,7 @@ const lang = {
         gptModelConfig: 'gpt模型管理',
         gptApiTokenTable: 'gpt-api-token管理',
         promptRecordTable: 'prompt管理',
+        getChannelConfig: '通道管理',
         categoryTable: '分类联动表格',
         treeTable: '树联动表格',
         card: '卡片列表',

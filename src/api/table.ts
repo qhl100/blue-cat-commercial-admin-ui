@@ -48,6 +48,15 @@ export function queryGptModelConfig(data: object) {
 }
 
 
+export function queryGptModelChannelConfig(data: object) {
+  return request({
+    url: '/admin/getChannelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
 export function queryGptAilTokenConfig(data: object) {
     return request({
         url: '/gptApiTokenConfig/getGptAilTokenConfig',
@@ -59,7 +68,7 @@ export function queryGptAilTokenConfig(data: object) {
 
 export function queryChannelConfig(data: object) {
     return request({
-        url: '/channelConfig/getChannelConfig',
+        url: '/admin/getChannelConfig',
         method: 'post',
         data
     })
@@ -122,6 +131,15 @@ export function addGptModelConfig(data: object) {
   })
 }
 
+// 编辑
+export function addChannelConfig(data: object) {
+  return request({
+    url: '/admin/addChannelConfig',
+    method: 'post',
+    data
+  })
+}
+
 
 // 编辑
 export function updateGptAilTokenConfig(data: object) {
@@ -146,11 +164,33 @@ export function updateGptModelConfig(data: object) {
 
 
 
+// 编辑
+export function updateChannelConfig(data: object) {
+  return request({
+    url: '/admin/updateChannelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+
 
 // 编辑
 export function delGptModelConfig(data: object) {
   return request({
     url: '/admin/delGptModelConfig',
+    method: 'post',
+    data
+  })
+}
+
+
+
+// 编辑
+export function delGptModelChannelConfig(data: object) {
+  return request({
+    url: '/admin/delChannelConfig',
     method: 'post',
     data
   })

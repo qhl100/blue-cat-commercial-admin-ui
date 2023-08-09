@@ -11,8 +11,8 @@
         @getTableData="getTableData"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="id" label="产品名称" align="center" />
-        <el-table-column prop="sessionId" label="sessionId" align="center" />
+        <el-table-column prop="id" label="id" align="center" />
+        <el-table-column prop="sessionId" label="用户id" align="center" />
         <el-table-column prop="userInfo" label="用户信息" align="center" />
       </Table>
       <Layer :layer="layer" @getTableData="getTableData" v-if="layer.show" />

@@ -20,7 +20,6 @@ export function delCookie(name: string)
 {
   const exp = new Date(new Date().getTime() - 1)
   const cval = getCookie(name)
-  debugger
   if (cval)
     document.cookie = `${name}=${cval};expires=Thu, 01 Jan 1970 00:00:01 GMT;`
 }

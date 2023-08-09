@@ -24,11 +24,11 @@ const route: Route[] = [
         component: createNameComponent(() => import('@/views/main/pages/userOnlineTable/index.vue')),
         meta: { title: 'message.menu.page.userOnlineTable', cache: false, roles: ['admin', 'editor'] }
       },
-      {
-        path: 'userLevelTable',
-        component: createNameComponent(() => import('@/views/main/pages/userLevelTable/index.vue')),
-        meta: { title: 'message.menu.page.userLevelTable', cache: false, roles: ['admin', 'editor'] }
-      },
+      // {
+      //   path: 'userLevelTable',
+      //   component: createNameComponent(() => import('@/views/main/pages/userLevelTable/index.vue')),
+      //   meta: { title: 'message.menu.page.userLevelTable', cache: false, roles: ['admin', 'editor'] }
+      // },
       {
         path: 'gptModelConfig',
         component: createNameComponent(() => import('@/views/main/pages/gptModelConfig/index.vue')),
@@ -43,6 +43,11 @@ const route: Route[] = [
         path: 'promptRecordTable',
         component: createNameComponent(() => import('@/views/main/pages/promptRecordTable/index.vue')),
         meta: { title: 'message.menu.page.promptRecordTable', cache: false, roles: ['admin', 'editor'] }
+      },
+      {
+        path: 'getChannelConfig',
+        component: createNameComponent(() => import('@/views/main/pages/getChannelConfig/index.vue')),
+        meta: { title: 'message.menu.page.getChannelConfig', cache: false, roles: ['admin', 'editor'] }
       },
       // {
       //   path: 'categoryTable',

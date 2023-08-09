@@ -2,34 +2,16 @@
   <div class="layout-container">
     <div class="layout-container-form">
       <div>
-        <el-form-item  label="生效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.createTime"
-                          type="date"
-                          :disabled-date="disabledDateStart"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
-      <div>
-        <el-form-item  label="失效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.endTime"
-                          type="date"
-                          :disabled-date="disabledDate"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
-      <div>
         <el-form-item>
           <el-button @click="handleAdd()">新增</el-button>
         </el-form-item>
       </div>
       <div class="layout-container-form-search" >
-        <el-form-item  label="模型名称">
+        <el-form-item  label="通道名称">
           <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
         <el-form-item label="模型" >
-          <el-select v-model="query.serviceType"  placeholder="请选择" clearable>
+          <el-select v-model="query.modelType"  placeholder="请选择" clearable>
             <el-option  v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
@@ -48,25 +30,18 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column prop="id" label="id" align="center" />
-        <el-table-column prop="baseUrl" label="访问地址" align="center" />
-        <el-table-column prop="token" label="访问token" align="center" />
+        <el-table-column prop="name" label="通道名称" align="center" />
+        <el-table-column prop="modelType" label="模型" align="center" />
         <el-table-column prop="model" label="模型标识" align="center"/>
-        <el-table-column prop="weight" label="权重" align="center" />
-        <el-table-column prop="status" label="状态" align="center" />
-        <el-table-column prop="name" label="名字" align="center" />
+        <el-table-column prop="status" label="通道状态" align="center" >
+          <template #default="scope">
+            {{statusMap[scope.row.status]}}
+          </template>
+        </el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" />
         <el-table-column prop="createUser" label="创建人" align="center" />
         <el-table-column prop="updateTime" label="更新时间" align="center" />
         <el-table-column prop="updateUser" label="更新人" align="center" />
-        <el-table-column label="绑定通道" align="center" >
-          <template #default="scope">
-            <li v-for="item in scope.row.channelIds"
-                :key="item"
-            >
-              <span>{{channelMap.get(item)}}</span>
-            </li>
-          </template>
-        </el-table-column>
         <el-table-column :label="$t('message.common.handle')" align="center" fixed="right" width="200">
           <template #default="scope">
             <el-button @click="handleEdit(scope.row)">{{ $t('message.common.update') }}</el-button>
@@ -78,7 +53,7 @@
           </template>
         </el-table-column>
       </Table>
-      <Layer :layer="layer" :channelMap="channelMap" :options="options" @getTableData="getTableData" v-if="layer.show" />
+      <Layer :layer="layer"  @getTableData="getTableData" v-if="layer.show" />
     </div>
   </div>
 </template>
@@ -87,7 +62,15 @@
 import { defineComponent, ref, reactive } from 'vue'
 import Table from '@/components/table/index.vue'
 import { Page } from '@/components/table/type'
-import {getData, del, queryUserAccess, queryGptModelConfig, queryChannelConfig, delGptModelConfig} from '@/api/table'
+import {
+  getData,
+  del,
+  queryUserAccess,
+  queryGptModelConfig,
+  queryChannelConfig,
+  delGptModelConfig,
+  queryGptModelChannelConfig, delGptModelChannelConfig
+} from '@/api/table'
 import Layer from './layer.vue'
 import { ElMessage } from 'element-plus'
 import { selectData, radioData } from './enum'
@@ -104,10 +87,15 @@ export default defineComponent({
   },
 
   setup: function () {
+    const statusMap = {
+      0: '关闭',
+      1: '正常',
+    };
       // 存储搜索用的数据
     const query = reactive({
       name:null,
-      serviceType:null,
+      modelType:null,
+      status:null,
       // createTime:1689868969000,
       // endTime:1690473769000,
       createTime:'',
@@ -147,11 +135,12 @@ export default defineComponent({
       }
       let params = {
         name:query.name ==='' ? null:query.name,
-        serviceType:query.serviceType ==='' ? null:query.serviceType,
+        modelType:query.modelType ==='' ? null:query.modelType,
+        status:query.status,
         page: page.index,
         pageSize: page.size
       }
-      queryGptModelConfig(params)
+      queryGptModelChannelConfig(params)
               .then(res => {
                 let data = res.data.records
                 if (Array.isArray(data)) {
@@ -174,32 +163,6 @@ export default defineComponent({
                 loading.value = false
               })
     }
-    const getChannelData = (init: boolean) => {
-      loading.value = true
-      let params = {
-        status: 1
-      }
-      queryChannelConfig(params)
-              .then(res => {
-                options.value = res.data.records.map(item => {
-                  return {
-                    value: item.id,
-                    label: item.name
-                  }
-                });
-                const map = res.data.records.reduce((acc, obj) => {
-                  acc.set(obj.id, obj.name);
-                  return acc;
-                }, new Map());
-                channelMap.value = map
-              })
-              .catch(error => {
-              })
-              .finally(() => {
-                loading.value = false
-              })
-    };
-
 
     // 删除功能
     const handleDel = (data: object[]) => {
@@ -208,7 +171,7 @@ export default defineComponent({
           return e.id
         }).join(',')
       }
-      delGptModelConfig(params)
+      delGptModelChannelConfig(params)
               .then(res => {
                 ElMessage({
                   type: 'success',
@@ -230,7 +193,6 @@ export default defineComponent({
       layer.show = true
     }
     getTableData(true)
-    getChannelData(true)
     return {
       Plus,
       Search,
@@ -244,13 +206,13 @@ export default defineComponent({
       page,
       layer,
       channelMap,
+      statusMap,
       options,
       handleSelectionChange,
       handleAdd,
       handleEdit,
       handleDel,
       getTableData,
-      getChannelData
     }
   }
 })
