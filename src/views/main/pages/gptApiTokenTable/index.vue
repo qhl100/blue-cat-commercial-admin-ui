@@ -53,6 +53,7 @@
         <el-table-column prop="status" label="状态" align="center" />
         <el-table-column prop="token" label="用户token" align="center"/>
         <el-table-column prop="balance" label="余额" align="center" />
+        <el-table-column prop="balanceStr" label="用户账号余额" align="center" />
         <el-table-column prop="status" label="状态" align="center" />
         <el-table-column prop="visitNumber" label="访问次数" align="center" />
         <el-table-column prop="endTime" label="失效时间" align="center" />
