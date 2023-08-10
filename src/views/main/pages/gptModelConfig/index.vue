@@ -29,7 +29,7 @@
           <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
         <el-form-item label="模型" >
-          <el-select v-model="query.serviceType"  placeholder="请选择" clearable>
+          <el-select v-model="query.model"  placeholder="请选择" clearable>
             <el-option  v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
@@ -107,7 +107,7 @@ export default defineComponent({
       // 存储搜索用的数据
     const query = reactive({
       name:null,
-      serviceType:null,
+      model:null,
       // createTime:1689868969000,
       // endTime:1690473769000,
       createTime:'',
@@ -147,7 +147,7 @@ export default defineComponent({
       }
       let params = {
         name:query.name ==='' ? null:query.name,
-        serviceType:query.serviceType ==='' ? null:query.serviceType,
+        model:query.model ==='' ? null:query.model,
         page: page.index,
         pageSize: page.size
       }
