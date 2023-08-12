@@ -1,36 +1,23 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div>
-        <el-form-item  label="生效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.createTime"
-                          type="date"
-                          :disabled-date="disabledDateStart"
-                          placeholder="选择日期" />
+      <div class="layout-container-form-search" style="display: flex; justify-content: flex-start; gap: 10px;">
+        <el-form-item label="生效日期" style="margin-right: 10px;">
+          <el-date-picker style="width: 60%" v-model="query.createTime" type="date" :disabled-date="disabledDateStart" placeholder="选择日期" />
         </el-form-item>
-      </div>
-      <div>
-        <el-form-item  label="失效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.endTime"
-                          type="date"
-                          :disabled-date="disabledDate"
-                          placeholder="选择日期" />
+        <el-form-item label="失效日期">
+          <el-date-picker style="width: 60%" v-model="query.endTime" type="date" :disabled-date="disabledDate" placeholder="选择日期" />
         </el-form-item>
-      </div>
-      <div>
         <el-form-item>
           <el-button @click="handleAdd()">新增</el-button>
         </el-form-item>
-      </div>
-      <div class="layout-container-form-search" >
-        <el-form-item  label="模型名称">
-          <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')" ></el-input>
+        <div></div>
+        <el-form-item label="模型名称">
+          <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')"></el-input>
         </el-form-item>
-        <el-form-item label="模型" >
-          <el-select v-model="query.model"  placeholder="请选择" clearable>
-            <el-option  v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-form-item label="模型">
+          <el-select v-model="query.model" placeholder="请选择" clearable>
+            <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
         <el-button type="primary" :icon="Search" class="search-btn" @click="getTableData(true)">{{ $t('message.common.search') }}</el-button>
