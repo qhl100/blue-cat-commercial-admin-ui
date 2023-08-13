@@ -22,6 +22,9 @@
         <el-form-item  label="token">
           <el-input v-model="query.token" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
+        <el-form-item  label="sourceToken">
+          <el-input v-model="query.sourceToken" :placeholder="$t('message.common.searchTip')" ></el-input>
+        </el-form-item>
         <el-form-item label="模型" >
           <el-select v-model="query.serviceType" placeholder="请选择" clearable>
             <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -46,7 +49,8 @@
         <el-table-column prop="token" label="token" align="center" />
         <el-table-column prop="promptToken" label="promptToken" align="center" />
         <el-table-column prop="relyToken" label="relyToken" align="center" />
-        <el-table-column prop="conversationId" label="会话id" align="center" />
+        <el-table-column prop="cost" label="花费金额" align="center" />
+        <el-table-column prop="sourceToken" label="sourceToken" align="center" />
         <el-table-column prop="createTime" label="建立时间" align="center" />
         <el-table-column prop="source" label="source" align="center" />
       </Table>
@@ -84,6 +88,7 @@ export default defineComponent({
       // 存储搜索用的数据
     const query = reactive({
       token:null,
+      sourceToken:null,
       createTime:'',
       endTime:'',
       serviceType:null
@@ -121,6 +126,7 @@ export default defineComponent({
         page: page.index,
         pageSize: page.size,
         token:query.token ==='' ? null:query.token,
+        sourceToken:query.sourceToken ==='' ? null:query.sourceToken,
         serviceType:query.serviceType ==='' ? null:query.serviceType,
         startTime : query.createTime,
         endTime: query.endTime,
