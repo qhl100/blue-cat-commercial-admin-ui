@@ -94,8 +94,10 @@ export default defineComponent({
       serviceType:null
     })
     const serviceTypeData = [
+      { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
-      { value:"gpt-4", label: 'gpt-4' }
+      { value:"gpt-4", label: 'gpt-4' },
+      { value:"gpt-4-32k", label: 'gpt-4-32k' }
     ]
     // 弹窗控制器
     const layer: LayerInterface = reactive({

@@ -51,7 +51,7 @@ export default defineComponent({
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4-32k", label: 'gpt-4-32k' },
-      { value:"gpt4", label: 'gpt4' }
+      { value:"gpt-4", label: 'gpt-4' }
     ]
 
     const statusType =  [

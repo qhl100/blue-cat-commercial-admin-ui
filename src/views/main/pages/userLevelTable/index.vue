@@ -96,9 +96,12 @@ export default defineComponent({
       createTime:'',
       endTime:''
     })
-    const serviceTypeData = [
-      { value:"chat_gpt_model3.5", label: 'gpt3.5' },
-      { value:"chat_gpt_model4", label: 'gpt4' }
+    const serviceTypeData =  [
+      { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
+      { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
+      { value:"gpt-4", label: 'gpt-4' },
+      { value:"gpt-4-32k", label: 'gpt-4-32k' }
+
     ]
     // 弹窗控制器
     const layer: LayerInterface = reactive({
