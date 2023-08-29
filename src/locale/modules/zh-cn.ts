@@ -18,7 +18,7 @@ const lang = {
     menu: {
       dashboard: {
         name: 'dashboard',
-        index: '首页'
+        index: '数据中心'
       },
       system: {
         name: '系统目录',
@@ -40,15 +40,16 @@ const lang = {
         exportExcel:'导出文件'
       },
       page: {
-        name: '页面',
+        name: '系统管理',
         userLogTable: '用户行为数据',
-        userInfoTable: '用户信息表',
-        userOnlineTable: '在线用户数据',
+        userInfoTable: '用户信息',
+        userOnlineTable: '在线用户',
         userLevelTable: '用户身份数据',
-        gptModelConfig: 'gpt模型管理',
-        gptApiTokenTable: 'gpt-api-token管理',
-        promptRecordTable: 'prompt管理',
-        getChannelConfig: '通道管理',
+        gptModelConfig: '模型渠道',
+        gptApiTokenTable: '用户token信息',
+        promptRecordTable: '会话记录',
+        drawRecordTable: '绘画记录',
+        getChannelConfig: '模型通道',
         categoryTable: '分类联动表格',
         treeTable: '树联动表格',
         card: '卡片列表',
@@ -114,9 +115,9 @@ const lang = {
       },
     },
     system: {
-      title: '蓝猫AI后台管理系统',
-      subTitle: '时间不在于你拥有多少,而在于你怎样使用。',
-      welcome: '欢迎登录',
+      title: '蓝猫AI数据中心',
+      subTitle: '使用蓝猫AI,改变你的工作方式',
+      welcome: '登录蓝猫AI数据中心',
       login: '登录',
       userName: '用户名',
       password: '密码',

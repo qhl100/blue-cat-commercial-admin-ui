@@ -22,7 +22,9 @@ export default defineComponent({
       { id: 2, name: '今日注册人数', data: '33', color: '#1cc88a', icon: 'sfont system-xiaoxi' },
       { id: 3, name: '今日登录人数', data: '2440000', color: '#36b9cc', icon: 'sfont system-shuliang_mianxing' },
       { id: 4, name: '总人数', data: '220,000', color: '#f6c23e', icon: 'sfont system-jindutiaoshouyidaozhang' },
-      { id: 5, name: '总人数', data: '220,000', color:'f6c23e', icon: 'sfont system-yonghu' }
+      { id: 5, name: '总人数', data: '220,000', color:'f6c23e', icon: 'sfont system-yonghu' },
+      { id: 6, name: '总人数', data: '220,000', color:'f6c23e', icon: 'sfont system-yonghu' },
+      { id: 7, name: '总人数', data: '220,000', color:'f6c23e', icon: 'sfont system-yonghu' }
     ]
     const list =  ref([])
     const getTableData = (init: boolean) => {

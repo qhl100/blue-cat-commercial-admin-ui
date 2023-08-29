@@ -27,7 +27,9 @@
         <el-input v-model="form.name"  placeholder="请输入模型名"></el-input>
       </el-form-item>
       <el-form-item label="状态：" prop="status">
-        <el-input v-model="form.status"  placeholder="请输入模型状态"></el-input>
+        <el-select v-model="form.status" clearable placeholder="请选择">
+          <el-option v-for="item in statusType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="绑定通道：">
         <el-select  v-model="form.channelIds" clearable multiple placeholder="Select">
@@ -78,11 +80,17 @@ export default defineComponent({
     const optionsList = ref(props.options)
     const ruleForm: Ref<ElFormItemContext|null> = ref(null)
     const layerDom: Ref<LayerType|null> = ref(null)
+    const statusType =  [
+      { value:1, label: '正常' },
+      { value:0, label: '封禁' },
+    ]
     const serviceTypeData =  [
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4", label: 'gpt-4' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' }
+      { value:"gpt-4-32k", label: 'gpt-4-32k' },
+      { value:"Midjourney", label: 'Midjourney' },
+      { value:"claude-2", label: 'claude-2' },
     ]
     let form = ref({
         id:null,
@@ -113,6 +121,7 @@ export default defineComponent({
       layerDom,
       ruleForm,
       serviceTypeData,
+      statusType,
       selectData,
       radioData,
       channelMaps,

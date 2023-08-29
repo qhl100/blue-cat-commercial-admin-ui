@@ -1,22 +1,22 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div>
-        <el-form-item  label="选择日期">
-          <el-date-picker style="width: 40%"
-                          v-model="query.createTime"
-                          type="date"
-                          :disabled-date="disabledDateStart"
-                          placeholder="选择日期" />
-          -
-          <el-date-picker style="width: 40%"
-                          v-model="query.endTime"
-                          type="date"
-                          :disabled-date="disabledDate"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
-      <div class="layout-container-form-search" label="送审ID">
+      <div class="layout-container-form-search">
+        <div>
+          <el-form-item  label="选择日期">
+            <el-date-picker style="width: 40%"
+                            v-model="query.createTime"
+                            type="date"
+                            :disabled-date="disabledDateStart"
+                            placeholder="选择日期" />
+            -
+            <el-date-picker style="width: 40%"
+                            v-model="query.endTime"
+                            type="date"
+                            :disabled-date="disabledDate"
+                            placeholder="选择日期" />
+          </el-form-item>
+        </div>
         <el-form-item  label="用户id">
           <el-input v-model="query.id" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>

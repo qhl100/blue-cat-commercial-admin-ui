@@ -1,12 +1,12 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div>
-        <el-form-item>
-          <el-button @click="handleAdd()">新增</el-button>
-        </el-form-item>
-      </div>
       <div class="layout-container-form-search" >
+        <div>
+          <el-form-item>
+            <el-button @click="handleAdd()" style="background-color: #6c9f76 ; color: white">新增</el-button>
+          </el-form-item>
+        </div>
         <el-form-item  label="通道名称">
           <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
@@ -32,7 +32,6 @@
         <el-table-column prop="id" label="id" align="center" />
         <el-table-column prop="name" label="通道名称" align="center" />
         <el-table-column prop="modelType" label="模型" align="center" />
-        <el-table-column prop="model" label="模型标识" align="center"/>
         <el-table-column prop="status" label="通道状态" align="center" >
           <template #default="scope">
             {{statusMap[scope.row.status]}}
@@ -117,7 +116,9 @@ export default defineComponent({
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4", label: 'gpt-4' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' }
+      { value:"gpt-4-32k", label: 'gpt-4-32k' },
+      { value:"Midjourney", label: 'Midjourney' },
+      { value:"claude-2", label: 'claude-2' },
 
     ]
     const channelMap = ref(new Map());

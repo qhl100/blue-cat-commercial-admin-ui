@@ -22,7 +22,7 @@
       <div class="layout-container-form-search" >
         <el-form-item  label="用户id">
           <el-input v-model="query.userId" :placeholder="$t('message.common.searchTip')" ></el-input>
-      </el-form-item>
+       </el-form-item>
           <el-form-item  label="用户账号">
           <el-input v-model="query.account" :placeholder="$t('message.common.searchTip')" ></el-input>
       </el-form-item>
@@ -56,7 +56,6 @@
         <el-table-column prop="balanceStr" label="用户账号余额" align="center" />
         <el-table-column prop="status" label="状态" align="center" />
         <el-table-column prop="visitNumber" label="访问次数" align="center" />
-        <el-table-column prop="endTime" label="失效时间" align="center" />
         <el-table-column prop="createTime" label="创建时间" align="center" />
         <el-table-column prop="createUser" label="创建人" align="center" />
         <el-table-column prop="updateTime" label="更新时间" align="center" />

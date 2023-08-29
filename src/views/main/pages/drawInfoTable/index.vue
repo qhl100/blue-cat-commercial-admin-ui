@@ -1,32 +1,14 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div>
-        <el-form-item  label="生效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.createTime"
-                          type="date"
-                          :disabled-date="disabledDateStart"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
-      <div>
-        <el-form-item  label="失效日期">
-          <el-date-picker style="width: 60%"
-                          v-model="query.endTime"
-                          type="date"
-                          :disabled-date="disabledDate"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
-      <div class="layout-container-form-search" >
-        <el-form-item  label="用户id">
-          <el-input v-model="query.userId" :placeholder="$t('message.common.searchTip')" ></el-input>
-        </el-form-item>
-        <el-form-item label="模型" >
-          <el-select v-model="query.serviceType" placeholder="请选择" clearable>
-            <el-option v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <div class="layout-container-form-search">
+        <el-form-item label="状态" >
+          <el-select v-model="query.status" placeholder="请选择" clearable>
+            <el-option v-for="item in statusData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item  label="任务id">
+          <el-input v-model="query.taskId" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
         <el-button type="primary" :icon="Search" class="search-btn" @click="getTableData(true)">{{ $t('message.common.search') }}</el-button>
       </div>
@@ -42,24 +24,19 @@
         @getTableData="getTableData"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="userId" label="用户id" align="center" />
-        <el-table-column prop="serviceType" label="模型标识" align="center" />
-        <el-table-column prop="useNumber" label="使用次数" align="center" />
-        <el-table-column prop="startEffectiveTime" label="生效时间" align="center"/>
-        <el-table-column prop="endEffectiveTime" label="失效时间" align="center" />
-        <el-table-column prop="createTime" label="创建时间" align="center" />
-        <el-table-column prop="updateTime" label="更新时间" align="center" />
-        <el-table-column prop="updateUser" label="更新人" align="center" />
-        <el-table-column :label="$t('message.common.handle')" align="center" fixed="right" width="200">
+        <el-table-column prop="id" label="id" align="center" />
+        <el-table-column prop="taskId" label="模型" align="center" />
+        <el-table-column prop="userId" label="userId" align="center" />
+        <el-table-column prop="status" label="状态" align="center" >
           <template #default="scope">
-            <el-button @click="handleEdit(scope.row)">{{ $t('message.common.update') }}</el-button>
-            <el-popconfirm :title="$t('message.common.delTip')" @confirm="handleDel([scope.row])">
-              <template #reference>
-                <el-button type="danger">{{ $t('message.common.del') }}</el-button>
-              </template>
-            </el-popconfirm>
+            {{statusMap[scope.row.status]}}
           </template>
         </el-table-column>
+        <el-table-column prop="taskUrl" label="taskUrl" align="center" />
+        <el-table-column prop="createTime" label="创建时间" align="center" />
+        <el-table-column prop="updateTime" label="更新时间" align="center" />
+        <el-table-column prop="finishTime" label="建立时间" align="center" />
+        <el-table-column prop="action" label="action" align="center" />
       </Table>
       <Layer :layer="layer" @getTableData="getTableData" v-if="layer.show" />
     </div>
@@ -70,7 +47,7 @@
 import { defineComponent, ref, reactive } from 'vue'
 import Table from '@/components/table/index.vue'
 import { Page } from '@/components/table/type'
-import {getData, del, queryUserAccess} from '@/api/table'
+import {getData, del, queryUserLog, queryPromptRecord, queryMjRecord} from '@/api/table'
 import Layer from './layer.vue'
 import { ElMessage } from 'element-plus'
 import { selectData, radioData } from './enum'
@@ -80,23 +57,32 @@ const opMap = new Map();
 const auditOpListMap = ref([])
 
 export default defineComponent({
-  name: 'userLevelTable',
+  name: 'userLogTable',
   components: {
     Table,
     Layer
   },
 
   setup: function () {
+    const statusMap = {
+      1: '生成中',
+      2: '已完成',
+    };
+      const opMap = {
+          1: '登录',
+          2: '注册',
+          3: '退出',
+      };
       // 存储搜索用的数据
     const query = reactive({
-      userId:null,
-      serviceType:null,
-      // createTime:1689868969000,
-      // endTime:1690473769000,
-      createTime:'',
-      endTime:''
+      taskId:null,
+      status:null
     })
-    const serviceTypeData =  [
+    const statusData =  [
+      { value:1, label: '生成中' },
+      { value:2, label: '完成' }
+    ]
+    const serviceTypeData = [
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4", label: 'gpt-4' },
@@ -132,12 +118,11 @@ export default defineComponent({
       let params = {
         page: page.index,
         pageSize: page.size,
-        startEffectiveTime : query.createTime,
-        endEffectiveTime: query.endTime,
-        userId: query.userId  ==='' ? null : query.userId,
-        serviceType: query.serviceType ==='' ? null : query.serviceType
+        taskId:query.taskId,
+        status:query.status ? query.status: 2
       }
-      queryUserAccess(params)
+
+      queryMjRecord(params)
               .then(res => {
                 let data = res.data.records
                 if (Array.isArray(data)) {
@@ -158,22 +143,6 @@ export default defineComponent({
               })
               .finally(() => {
                 loading.value = false
-              })
-    }
-    // 删除功能
-    const handleDel = (data: object[]) => {
-      let params = {
-        ids: data.map((e: any) => {
-          return e.id
-        }).join(',')
-      }
-      del(params)
-              .then(res => {
-                ElMessage({
-                  type: 'success',
-                  message: '删除成功'
-                })
-                getTableData(tableData.value.length === 1 ? true : false)
               })
     }
     // 新增弹窗功能
@@ -197,14 +166,15 @@ export default defineComponent({
       opMap,
       tableData,
       chooseData,
-      serviceTypeData,
       loading,
       page,
       layer,
+      serviceTypeData,
+      statusData,
+      statusMap,
       handleSelectionChange,
       handleAdd,
       handleEdit,
-      handleDel,
       getTableData
     }
   }

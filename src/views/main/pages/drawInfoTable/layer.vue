@@ -1,22 +1,21 @@
 <template>
   <Layer :layer="layer" @confirm="submit" ref="layerDom">
     <el-form :model="form" :rules="rules" ref="ruleForm" label-width="120px" style="margin-right:30px;">
-      <el-form-item label="id" prop="id">
-        <el-input v-model="form.id" :disabled="true" placeholder="通道id"></el-input>
+      <el-form-item label="名称：" prop="name">
+        <el-input v-model="form.name" placeholder="请输入名称"></el-input>
       </el-form-item>
-        <el-form-item label="通道名称：" prop="baseUrl">
-        <el-input v-model="form.name" placeholder="请输入通道名称"></el-input>
+      <el-form-item label="数字：" prop="number">
+        <el-input v-model="form.number" oninput="value=value.replace(/[^\d]/g,'')" placeholder="只能输入正整数"></el-input>
       </el-form-item>
-      <el-form-item label="通道状态：" prop="baseUrl">
-        <el-select v-model="form.status" clearable placeholder="请选择">
-          <el-option v-for="item in statusType" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="通道模型：" prop="modelType">
-        <el-select  v-model="form.modelType" clearable placeholder="Select">
-            <el-option  v-for="item in serviceTypeData" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-        </el-select>
+			<el-form-item label="选择器：" prop="select">
+			  <el-select v-model="form.choose" placeholder="请选择" clearable>
+					<el-option v-for="item in selectData" :key="item.value" :label="item.label" :value="item.value"></el-option>
+				</el-select>
+			</el-form-item>
+      <el-form-item label="单选框：" prop="radio">
+        <el-radio-group v-model="form.radio">
+          <el-radio v-for="item in radioData" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
   </Layer>
@@ -27,7 +26,7 @@ import type { LayerType } from '@/components/layer/index.vue'
 import type { Ref } from 'vue'
 import type { ElFormItemContext } from 'element-plus/lib/el-form/src/token'
 import { defineComponent, ref } from 'vue'
-import {addChannelConfig, addGptModelConfig, update, updateChannelConfig, updateGptModelConfig} from '@/api/table'
+import { add, update } from '@/api/table'
 import { selectData, radioData } from './enum'
 import Layer from '@/components/layer/index.vue'
 export default defineComponent({
@@ -47,27 +46,13 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
-    const serviceTypeData =  [
-      { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
-      { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' },
-      { value:"gpt-4", label: 'gpt-4' },
-      { value:"Midjourney", label: 'Midjourney' },
-      { value:"claude-2", label: 'claude-2' },
-    ]
-
-    const statusType =  [
-      { value:1, label: '正常' },
-      { value:0, label: '封禁' },
-    ]
     const ruleForm: Ref<ElFormItemContext|null> = ref(null)
     const layerDom: Ref<LayerType|null> = ref(null)
     let form = ref({
-        id:null,
-        name: null,
-      modelType: null,
-      status: null
-
+      name: '',
+      choose: '',
+      radio: '',
+      number: ''
     })
     const rules = {
       name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
@@ -80,6 +65,7 @@ export default defineComponent({
       if (props.layer.row) {
         form.value = JSON.parse(JSON.stringify(props.layer.row)) // 数量量少的直接使用这个转
       } else {
+
       }
     }
     return {
@@ -88,9 +74,7 @@ export default defineComponent({
       layerDom,
       ruleForm,
       selectData,
-      radioData,
-      statusType,
-      serviceTypeData,
+      radioData
     }
   },
   methods: {
@@ -98,14 +82,8 @@ export default defineComponent({
       if (this.ruleForm) {
         this.ruleForm.validate((valid) => {
           if (valid) {
-              let params = {
-                id:this.form.id,
-                name:this.form.name,
-                modelType: this.form.modelType,
-                status: this.form.status
-              }
+            let params = this.form
             if (this.layer.row) {
-              console.log(params)
               this.updateForm(params)
             } else {
               this.addForm(params)
@@ -118,7 +96,7 @@ export default defineComponent({
     },
     // 新增提交事件
     addForm(params: object) {
-      addChannelConfig(params)
+      add(params)
       .then(res => {
         this.$message({
           type: 'success',
@@ -130,7 +108,7 @@ export default defineComponent({
     },
     // 编辑提交事件
     updateForm(params: object) {
-      updateChannelConfig(params)
+      update(params)
       .then(res => {
         this.$message({
           type: 'success',

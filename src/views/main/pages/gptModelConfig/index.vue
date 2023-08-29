@@ -1,17 +1,13 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div class="layout-container-form-search" style="display: flex; justify-content: flex-start; gap: 10px;">
-        <el-form-item label="生效日期" style="margin-right: 10px;">
+      <div class="layout-container-form-search">
+        <el-form-item label="生效日期">
           <el-date-picker style="width: 60%" v-model="query.createTime" type="date" :disabled-date="disabledDateStart" placeholder="选择日期" />
         </el-form-item>
         <el-form-item label="失效日期">
           <el-date-picker style="width: 60%" v-model="query.endTime" type="date" :disabled-date="disabledDate" placeholder="选择日期" />
         </el-form-item>
-        <el-form-item>
-          <el-button @click="handleAdd()">新增</el-button>
-        </el-form-item>
-        <div></div>
         <el-form-item label="模型名称">
           <el-input v-model="query.name" :placeholder="$t('message.common.searchTip')"></el-input>
         </el-form-item>
@@ -21,6 +17,9 @@
           </el-select>
         </el-form-item>
         <el-button type="primary" :icon="Search" class="search-btn" @click="getTableData(true)">{{ $t('message.common.search') }}</el-button>
+        <el-form-item>
+          <el-button style="background-color: #6c9f76 ; color: white" @click="handleAdd()">新增</el-button>
+        </el-form-item>
       </div>
     </div>
     <div class="layout-container-table">
@@ -116,7 +115,9 @@ export default defineComponent({
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4", label: 'gpt-4' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' }
+      { value:"gpt-4-32k", label: 'gpt-4-32k' },
+      { value:"Midjourney", label: 'Midjourney' },
+      { value:"claude-2", label: 'claude-2' },
 
     ]
     const channelMap = ref(new Map());

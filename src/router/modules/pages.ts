@@ -45,6 +45,11 @@ const route: Route[] = [
         meta: { title: 'message.menu.page.promptRecordTable', cache: false, roles: ['admin', 'editor'] }
       },
       {
+        path: 'drawRecordTable',
+        component: createNameComponent(() => import('@/views/main/pages/drawInfoTable/index.vue')),
+        meta: { title: 'message.menu.page.drawRecordTable', cache: false, roles: ['admin', 'editor'] }
+      },
+      {
         path: 'getChannelConfig',
         component: createNameComponent(() => import('@/views/main/pages/getChannelConfig/index.vue')),
         meta: { title: 'message.menu.page.getChannelConfig', cache: false, roles: ['admin', 'editor'] }

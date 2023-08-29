@@ -24,6 +24,15 @@ export function queryPromptRecord(data: object) {
     data
   })
 }
+
+
+export function queryMjRecord(data: object) {
+  return request({
+    url: '/draw/queryDrawTaskInfo',
+    method: 'post',
+    data
+  })
+}
 export function queryOnlineUser() {
   return request({
     url: '/admin/queryOnlineUser',

@@ -1,24 +1,23 @@
 <template>
   <div class="layout-container">
     <div class="layout-container-form">
-      <div>
-        <el-form-item  label="选择日期">
-          <el-date-picker style="width: 40%"
-                          value-format="YYYY-MM-DDTHH:mm:ss"
-                          v-model="query.createTime"
-                          type="datetime"
-                          :disabled-date="disabledDateStart"
-                          placeholder="选择日期" />
-          -
-          <el-date-picker style="width: 40%"
-                          value-format="YYYY-MM-DDTHH:mm:ss"
-                          v-model="query.endTime"
-                          type="datetime"
-                          :disabled-date="disabledDate"
-                          placeholder="选择日期" />
-        </el-form-item>
-      </div>
+
       <div class="layout-container-form-search">
+          <el-form-item  label="选择日期">
+            <el-date-picker style="width: 40%"
+                            value-format="YYYY-MM-DDTHH:mm:ss"
+                            v-model="query.createTime"
+                            type="datetime"
+                            :disabled-date="disabledDateStart"
+                            placeholder="选择日期" />
+            -
+            <el-date-picker style="width: 40%"
+                            value-format="YYYY-MM-DDTHH:mm:ss"
+                            v-model="query.endTime"
+                            type="datetime"
+                            :disabled-date="disabledDate"
+                            placeholder="选择日期" />
+          </el-form-item>
         <el-form-item  label="token">
           <el-input v-model="query.token" :placeholder="$t('message.common.searchTip')" ></el-input>
         </el-form-item>
@@ -97,7 +96,9 @@ export default defineComponent({
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
       { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
       { value:"gpt-4", label: 'gpt-4' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' }
+      { value:"gpt-4-32k", label: 'gpt-4-32k' },
+      { value:"Midjourney", label: 'Midjourney' },
+      { value:"claude-2", label: 'claude-2' },
     ]
     // 弹窗控制器
     const layer: LayerInterface = reactive({

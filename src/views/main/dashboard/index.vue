@@ -2,7 +2,7 @@
   <div class="box">
 <!--    <basic-template />-->
     <Card />
-    <Charts />
+<!--    <Charts />-->
 <!--    <Communication />-->
   </div>
 </template>
