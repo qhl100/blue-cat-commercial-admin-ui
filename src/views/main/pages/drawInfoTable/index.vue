@@ -67,6 +67,8 @@ export default defineComponent({
     const statusMap = {
       1: '生成中',
       2: '已完成',
+      3: '删除',
+      "-1": "失败"
     };
       const opMap = {
           1: '登录',
@@ -76,11 +78,13 @@ export default defineComponent({
       // 存储搜索用的数据
     const query = reactive({
       taskId:null,
-      status:null
+      status:Array
     })
     const statusData =  [
       { value:1, label: '生成中' },
-      { value:2, label: '完成' }
+      { value:2, label: '完成' },
+      { value:3, label: '删除' },
+      { value:-1, label: '失败' }
     ]
     const serviceTypeData = [
       { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
@@ -119,7 +123,7 @@ export default defineComponent({
         page: page.index,
         pageSize: page.size,
         taskId:query.taskId,
-        status:query.status ? query.status: 2
+        status:query.status ? query.status: [2]
       }
 
       queryMjRecord(params)
