@@ -3,7 +3,7 @@
     <div class="layout-container-form">
       <div class="layout-container-form-search">
         <el-form-item label="状态" >
-          <el-select v-model="query.status" placeholder="请选择" clearable>
+          <el-select v-model="query.status" placeholder="请选择" multiple clearable>
             <el-option v-for="item in statusData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
