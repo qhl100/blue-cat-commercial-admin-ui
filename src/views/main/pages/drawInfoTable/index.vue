@@ -3,7 +3,7 @@
     <div class="layout-container-form">
       <div class="layout-container-form-search">
         <el-form-item label="状态" >
-          <el-select v-model="query.status" placeholder="请选择" multiple clearable>
+          <el-select v-model="query.status"  placeholder="Select"  clearable  multiple>
             <el-option v-for="item in statusData" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
@@ -15,14 +15,14 @@
     </div>
     <div class="layout-container-table">
       <Table
-        ref="table"
-        v-model:page="page"
-        v-loading="loading"
-        :showIndex="true"
-        :showSelection="true"
-        :data="tableData"
-        @getTableData="getTableData"
-        @selection-change="handleSelectionChange"
+          ref="table"
+          v-model:page="page"
+          v-loading="loading"
+          :showIndex="true"
+          :showSelection="true"
+          :data="tableData"
+          @getTableData="getTableData"
+          @selection-change="handleSelectionChange"
       >
         <el-table-column prop="id" label="id" align="center" />
         <el-table-column prop="taskId" label="模型" align="center" />
@@ -53,7 +53,6 @@ import { ElMessage } from 'element-plus'
 import { selectData, radioData } from './enum'
 import { Plus, Search, Delete } from '@element-plus/icons'
 import {LayerInterface} from "@/components/layer/index.vue";
-const opMap = new Map();
 const auditOpListMap = ref([])
 
 export default defineComponent({
@@ -68,17 +67,17 @@ export default defineComponent({
       1: '生成中',
       2: '已完成',
       3: '删除',
-      "-1": "失败"
+      "-1": '失败'
     };
-      const opMap = {
-          1: '登录',
-          2: '注册',
-          3: '退出',
-      };
-      // 存储搜索用的数据
+    const opMap = {
+      1: '登录',
+      2: '注册',
+      3: '退出',
+    };
+    // 存储搜索用的数据
     const query = reactive({
-      taskId:null,
-      status:Array
+      taskId: null,
+      status: []
     })
     const statusData =  [
       { value:1, label: '生成中' },
@@ -86,14 +85,7 @@ export default defineComponent({
       { value:3, label: '删除' },
       { value:-1, label: '失败' }
     ]
-    const serviceTypeData = [
-      { value:"gpt-3.5-turbo-16k", label: 'gpt-3.5-turbo-16k' },
-      { value:"gpt-3.5-turbo", label: 'gpt-3.5-turbo' },
-      { value:"gpt-4", label: 'gpt-4' },
-      { value:"gpt-4-32k", label: 'gpt-4-32k' },
-      { value:"Midjourney", label: 'Midjourney' },
-      { value:"claude-2", label: 'claude-2' },
-    ]
+
     // 弹窗控制器
     const layer: LayerInterface = reactive({
       show: false,
@@ -127,27 +119,27 @@ export default defineComponent({
       }
 
       queryMjRecord(params)
-              .then(res => {
-                let data = res.data.records
-                if (Array.isArray(data)) {
-                  data.forEach(d => {
-                    const select = selectData.find(select => select.value === d.choose)
-                    select ? d.chooseName = select.label : d.chooseName = d.choose
-                    const radio = radioData.find(select => select.value === d.radio)
-                    radio ? d.radioName = radio.label : d.radio
-                  })
-                }
-                tableData.value = res.data.records
-                page.total = Number(res.data.total)
+          .then(res => {
+            let data = res.data.records
+            if (Array.isArray(data)) {
+              data.forEach(d => {
+                const select = selectData.find(select => select.value === d.choose)
+                select ? d.chooseName = select.label : d.chooseName = d.choose
+                const radio = radioData.find(select => select.value === d.radio)
+                radio ? d.radioName = radio.label : d.radio
               })
-              .catch(error => {
-                tableData.value = []
-                page.index = 1
-                page.total = 0
-              })
-              .finally(() => {
-                loading.value = false
-              })
+            }
+            tableData.value = res.data.records
+            page.total = Number(res.data.total)
+          })
+          .catch(error => {
+            tableData.value = []
+            page.index = 1
+            page.total = 0
+          })
+          .finally(() => {
+            loading.value = false
+          })
     }
     // 新增弹窗功能
     const handleAdd = () => {
@@ -173,7 +165,6 @@ export default defineComponent({
       loading,
       page,
       layer,
-      serviceTypeData,
       statusData,
       statusMap,
       handleSelectionChange,
@@ -186,5 +177,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  
+
 </style>
