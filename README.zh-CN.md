@@ -31,13 +31,13 @@
    npm install
    ```
 
-2. run in the development
+2.run in the development
 
    ```
    npm run dev 或 npm run start
    ```
 
-3. build in production
+3.build in production
 
    ```
    npm run build
