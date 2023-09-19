@@ -1,4 +1,4 @@
-<h1 align="center">vue-admin-box</h1>
+<h1 align="center">蓝猫AI后台管理系统</h1>
 <p align="center">
     <a href="https://github.com/vuejs/vue-next">
         <img src="https://img.shields.io/badge/vue3-3.0.5-brightgreen.svg" alt="vue">
@@ -21,4 +21,5 @@
 
 ## 简介
 
-- [更新日志](./VERSION.md)
+- [](./VERSION.md)
+蓝猫AI后台管理系统,感谢开源项目提供的源码
