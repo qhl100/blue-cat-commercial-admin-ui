@@ -22,7 +22,7 @@
 ## 简介
 
 - [](./VERSION.md)
-蓝猫AI后台管理系统,感谢开源项目提供的源码,根据下面指令快速开始运行项目
+蓝猫AI后台管理系统,感谢开源项目[ vue-admin-box](https://gitee.com/cmdparkour/vue-admin-box)提供的源码,根据下面指令快速开始运行项目
 
 
 1.install dependence, you can use cnpm or yarn in China
@@ -31,15 +31,11 @@
    npm install
    ```
 
-
-
 2. run in the development
 
    ```
    npm run dev 或 npm run start
    ```
-
-
 
 3. build in production
 
