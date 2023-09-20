@@ -28,7 +28,7 @@ export function queryPromptRecord(data: object) {
 
 export function queryMjRecord(data: object) {
   return request({
-    url: '/draw/queryDrawTaskInfo',
+    url: 'admin/draw/queryDrawTaskInfo',
     method: 'post',
     data
   })

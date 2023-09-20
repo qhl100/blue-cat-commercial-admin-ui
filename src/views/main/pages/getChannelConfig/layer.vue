@@ -54,6 +54,8 @@ export default defineComponent({
       { value:"gpt-4", label: 'gpt-4' },
       { value:"Midjourney", label: 'Midjourney' },
       { value:"claude-2", label: 'claude-2' },
+      { value:"gpt-4-0314", label: 'gpt-4-0314' },
+      { value:"gpt-4-0613", label: 'gpt-4-0613' },
     ]
 
     const statusType =  [
