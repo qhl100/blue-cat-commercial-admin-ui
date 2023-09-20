@@ -5,7 +5,7 @@
         <el-input v-model="form.id" :disabled="form.id" ></el-input>
       </el-form-item>
         <el-form-item label="用户id：" prop="userId">
-        <el-input v-model="form.userId" "></el-input>
+        <el-input v-model="form.userId" ></el-input>
       </el-form-item>
       <el-form-item label="访问token：" prop="token">
         <el-input v-model="form.token"  :disabled="true"></el-input>
