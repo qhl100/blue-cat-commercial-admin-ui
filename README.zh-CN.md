@@ -37,8 +37,9 @@
    npm run dev 或 npm run start
    ```
 
-3.build in production
+3.build in production 打包程序
 
    ```
-   npm run build
+  1、 production环境   npm run build 
+  2、 development环境  npm run build:development
    ```

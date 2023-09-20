@@ -5,6 +5,7 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build --mode=production",
+    "build:development": "vite build --mode=development",
     "build:stag": "vite build --mode=staging",
     "serve": "vite preview"
   },
