@@ -5,7 +5,7 @@
         <el-input v-model="form.id" :disabled="form.id" ></el-input>
       </el-form-item>
         <el-form-item label="用户id：" prop="userId">
-        <el-input v-model="form.userId" :disabled="form.id"></el-input>
+        <el-input v-model="form.userId" "></el-input>
       </el-form-item>
       <el-form-item label="访问token：" prop="token">
         <el-input v-model="form.token"  :disabled="true"></el-input>
@@ -52,8 +52,8 @@ import {addGptModelConfig, update, updateGptAilTokenConfig, updateGptModelConfig
 import {selectData, radioData} from './enum'
 import Layer from '@/components/layer/index.vue'
 import  { Ref } from 'vue'
-import  { ElFormItemContext } from 'element-plus/lib/el-form/src/token'
 import  { LayerType } from '@/components/layer/index.vue'
+import type { ElFormItemContext } from 'element-plus/lib/el-form/src/token'
 
 export interface apiObject {
     id: number,
